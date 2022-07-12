@@ -47,3 +47,44 @@ func (m Map) Bool(key string, or ...bool) bool {
 	}
 	return GetBoolOrDefault(false, or...)
 }
+
+// MapStr utilities for map[string]string
+type MapStr map[string]string
+
+// Str returns the value from key as a string
+func (m MapStr) Str(k string) string {
+	if v, ok := m[k]; ok {
+		return v
+	}
+	return ""
+}
+
+// Int returns the value from key as a int
+func (m MapStr) Int(k string) int {
+	if v, ok := m[k]; ok {
+		if i, err := strconv.Atoi(v); err != nil {
+			return i
+		}
+	}
+	return 0
+}
+
+// Float returns the value from key as a float64
+func (m MapStr) Float(k string) float64 {
+	if v, ok := m[k]; ok {
+		if f, err := strconv.ParseFloat(v, 64); err != nil {
+			return f
+		}
+	}
+	return 0
+}
+
+// Bool returns the value from key as a bool
+func (m MapStr) Bool(k string) bool {
+	if v, ok := m[k]; ok {
+		if b, err := strconv.ParseBool(v); err != nil {
+			return b
+		}
+	}
+	return false
+}
